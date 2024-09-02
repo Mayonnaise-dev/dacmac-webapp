@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button, Grid2, styled, Typography } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import image006 from "../assets/image006.png";
 import { Link, useLocation } from "react-router-dom";
 
@@ -13,7 +14,7 @@ const NavBarBox = styled(Box)`
   opacity: 0.7;
 `;
 
-const NavBarLook = styled(Grid2)`
+const NavBarLook = styled(Grid)`
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -35,7 +36,7 @@ const Navbar: React.FC = () => {
         alignItems={"center"}
       >
         <img src={image006} alt="Dacmac Logo"></img>
-        <Grid2 container spacing={3} alignItems={"center"}>
+        <Grid container spacing={3} alignItems={"center"}>
           <Link to="/">
             <Button>
               <Typography
@@ -76,7 +77,7 @@ const Navbar: React.FC = () => {
               </Typography>
             </Button>
           </Link>
-        </Grid2>
+        </Grid>
       </NavBarLook>
     </NavBarBox>
   );
