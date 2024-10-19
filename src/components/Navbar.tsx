@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Button, styled, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import image006 from "../assets/image006.png";
-import { Link, useLocation } from "react-router-dom";
 
 const NavBarBox = styled(Box)`
   min-width: 100%;
@@ -11,7 +10,7 @@ const NavBarBox = styled(Box)`
   top: 0%;
   padding: 2vh 2vw;
   background: #2c2d30;
-  opacity: 0.7;
+  opacity: 0.8;
 `;
 
 const NavBarLook = styled(Grid)`
@@ -24,10 +23,17 @@ const NavBarLook = styled(Grid)`
   }
 `;
 
-const Navbar: React.FC = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+interface NavbarProps {
+  page1Click: () => void;
+  page2Click: () => void;
+  page3Click: () => void;
+}
 
+const Navbar: React.FC<NavbarProps> = ({
+  page1Click,
+  page2Click,
+  page3Click,
+}) => {
   return (
     <NavBarBox>
       <NavBarLook
@@ -37,46 +43,29 @@ const Navbar: React.FC = () => {
       >
         <img src={image006} alt="Dacmac Logo"></img>
         <Grid container spacing={3} alignItems={"center"}>
-          <Link to="/">
-            <Button>
-              <Typography
-                color="white"
-                fontSize={currentPath === "/" ? "1.3rem" : "1rem"}
-              >
-                HOME
-              </Typography>
-            </Button>
-          </Link>
-          <Link to="/about">
-            <Button>
-              <Typography
-                color="white"
-                fontSize={currentPath === "/about" ? "1.3rem" : "1rem"}
-              >
-                ABOUT
-              </Typography>
-            </Button>
-          </Link>
-          <Link to="/services">
-            <Button>
-              <Typography
-                color="white"
-                fontSize={currentPath === "/services" ? "1.3rem" : "1rem"}
-              >
-                SERVICES
-              </Typography>
-            </Button>
-          </Link>
-          <Link to="/contact">
-            <Button>
-              <Typography
-                color="white"
-                fontSize={currentPath === "/contact" ? "1.3rem" : "1rem"}
-              >
-                CONTACT
-              </Typography>
-            </Button>
-          </Link>
+          <Button onClick={page1Click}>
+            <Typography fontFamily={"Outfit"} color="white">
+              HOME
+            </Typography>
+          </Button>
+
+          <Button>
+            <Typography fontFamily={"Outfit"} color="white">
+              ABOUT
+            </Typography>
+          </Button>
+
+          <Button>
+            <Typography fontFamily={"Outfit"} color="white">
+              SERVICES
+            </Typography>
+          </Button>
+
+          <Button>
+            <Typography fontFamily={"Outfit"} color="white">
+              CONTACT US
+            </Typography>
+          </Button>
         </Grid>
       </NavBarLook>
     </NavBarBox>

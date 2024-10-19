@@ -1,16 +1,46 @@
-import { Box, styled, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Box, Button, Grid2, styled, Typography } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 
 import truck from "../assets/trucks.jpeg";
-import ferrari from "../assets/ferrari.jpg";
-import mercedes from "../assets/mercedes.jpg";
-import lexus from "../assets/lexus.jpg";
+import truckdriver1 from "../assets/test1.jpeg";
+import truckdriver2 from "../assets/test2.jpeg";
+import truckdriver3 from "../assets/test3.jpeg";
+import face1 from "../assets/face1.jpeg";
+import face2 from "../assets/face2.jpeg";
+import face3 from "../assets/face3.jpeg";
+import face4 from "../assets/face4.jpeg";
+import face5 from "../assets/face5.jpeg";
+import face6 from "../assets/face6.jpeg";
+import face7 from "../assets/face7.jpeg";
+import sales from "../assets/sales.jpeg";
+import { useEffect, useRef, useState } from "react";
+import Navbar from "../components/Navbar";
+
+const CustomButton = styled(Button)`
+  min-width: 40px;
+  width: 100%;
+  background-color: transparent;
+  text-transform: none;
+  border: 1px solid #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  &:active {
+    background-color: #000;
+    color: #fff;
+  }
+`;
 
 const TruckBackgroundContainer = styled(Box)`
   width: 100%;
   height: 80vh;
   position: relative;
+
   top: 0;
   left: 0;
 
@@ -28,8 +58,8 @@ const TruckBackgroundContainer = styled(Box)`
     height: 50%;
     background: linear-gradient(
       to bottom,
-      rgba(44, 45, 48, 0) 0%,
-      rgba(44, 45, 48, 1) 100%
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
     );
   }
 `;
@@ -48,158 +78,387 @@ const JumpingIcon = styled(KeyboardDoubleArrowDownIcon)`
   }
 `;
 
-const PlateImageLeft = styled(Box)`
+const ScrollingContainer = styled(Box)`
+  display: flex;
+  overflow-x: hidden;
   width: 100%;
-  height: 35vh;
-  position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      to right,
-      rgba(44, 45, 48, 0) 0%,
-      rgba(44, 45, 48, 1) 100%
-    );
-  }
 `;
 
-const PlateImageRight = styled(Box)`
-  width: 100%;
-  height: 35vh;
-  position: relative;
+const ScrollingContent = styled(Box)`
+  display: flex;
+  animation: scroll 30s linear infinite;
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      to left,
-      rgba(44, 45, 48, 0) 0%,
-      rgba(44, 45, 48, 1) 100%
-    );
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 `;
 
 function Home() {
-  const handleDownClick = () => {};
+  const firstPageRef = useRef<HTMLDivElement>(null);
+  const secondPageRef = useRef<HTMLDivElement>(null);
+  const thirdPageRef = useRef<HTMLDivElement>(null);
+  const fourthPageRef = useRef<HTMLDivElement>(null);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [truckdriver1, truckdriver2, truckdriver3];
+  const faces = [
+    { src: face1, name: "John Doe", rank: "CEO" },
+    { src: face2, name: "Jane Smith", rank: "Sales" },
+    { src: face3, name: "Alice Johnson", rank: "Administration" },
+    { src: face4, name: "Bob Brown", rank: "Administration" },
+    { src: face5, name: "Charlie Davis", rank: "Operations" },
+    { src: face6, name: "Diana Evans", rank: "Sales" },
+    { src: face7, name: "Frank Green", rank: "Operations" },
+  ];
+
+  const handleDownClickPage1 = () => {
+    if (firstPageRef.current) {
+      firstPageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleDownClickPage2 = () => {
+    if (secondPageRef.current) {
+      secondPageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleDownClickPage3 = () => {
+    if (thirdPageRef.current) {
+      thirdPageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleDownClickPage4 = () => {
+    if (fourthPageRef.current) {
+      fourthPageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
-    <>
-      <TruckBackgroundContainer>
-        <img src={truck} alt="Truck"></img>
-      </TruckBackgroundContainer>
-      <Box
-        onClick={handleDownClick}
+    <Box
+      sx={{
+        backgroundColor: "#e6e6e8",
+      }}
+    >
+      <Navbar
+        page1Click={handleDownClickPage1}
+        page2Click={handleDownClickPage2}
+        page3Click={handleDownClickPage3}
+      />
+      <Grid2
+        container
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        spacing={2}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "8vh",
-          cursor: "pointer",
+          backgroundColor: "black",
+          width: "100vw",
+          height: "100vh",
         }}
+        ref={firstPageRef}
       >
-        <JumpingIcon
+        <TruckBackgroundContainer>
+          <img src={truck} alt="Truck"></img>
+        </TruckBackgroundContainer>
+        <Box
+          onClick={handleDownClickPage2}
           sx={{
-            color: "white",
-            opacity: 0.8,
-            fontSize: "3rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "8vh",
+            cursor: "pointer",
           }}
-        />
-      </Box>
-      <Grid
+        >
+          <JumpingIcon
+            sx={{
+              color: "white",
+              opacity: 0.8,
+              fontSize: "3rem",
+            }}
+          />
+        </Box>
+      </Grid2>
+      <Grid2
         container
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
         padding={"2vh 0vw"}
         spacing={2}
+        sx={{
+          backgroundColor: "#e6e6e8",
+          flexDirection: "column",
+          width: "100vw",
+          height: "100vh",
+        }}
+        ref={secondPageRef}
       >
-        <Typography color="white" fontSize={"4rem"}>
-          Welcome to Dacmac Logistics
-        </Typography>
-        <Grid size={7}>
-          <PlateImageLeft>
-            <img src={ferrari} alt="Ferarri"></img>
-          </PlateImageLeft>
-        </Grid>
-        <Grid size={5}>
-          <Typography color="white" fontSize={"1rem"}>
-            {" "}
-            The Ferrari Enzo is a masterpiece of automotive engineering,
-            embodying Ferrari's racing heritage and cutting-edge technology.
-            Named after the company's founder, this striking supercar boasts a
-            sleek, aerodynamic design with a low, aggressive stance and a
-            distinctive, sculpted body. Underneath its carbon fiber skin lies a
-            6.0-liter V12 engine, producing an exhilarating 660 horsepower,
-            which propels the Enzo from 0 to 60 mph in just 3.4 seconds. Its
-            advanced features include a sophisticated F1-style transmission and
-            a carbon-ceramic braking system, ensuring exceptional performance
-            and handling. The Enzo not only delivers blistering speed but also
-            an unforgettable driving experience, making it a coveted icon among
-            automotive enthusiasts.
+        <Grid2
+          container
+          sx={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Grid2>
+            <Box sx={{ overflow: "hidden" }}>
+              <img src={sales} alt={`truckdriver`} width={"40%"} />
+            </Box>
+          </Grid2>
+          <Grid2
+            sx={{
+              maxWidth: "600px",
+              marginLeft: "80px",
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "Outfit",
+                fontWeight: "bold",
+                fontSize: "40px",
+              }}
+            >
+              We move, so you don't have to
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                marginTop: "15px",
+              }}
+            >
+              At the heart of every thriving business lies efficient movement of
+              goods, services, and time. At Dacmac Logistics, we understand that
+              logistics is more than just transport; it’s the lifeblood of your
+              operations.
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                marginTop: "15px",
+              }}
+            >
+              We make it simple, seamless, and reliable, whether you’re sending
+              freight within your town or shipping pallets across the country.
+              With cutting-edge technology, a fleet of state-of-the-art
+              vehicles, and a dedicated team, we take the weight off your
+              shoulders.
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                marginTop: "15px",
+              }}
+            >
+              So while we’re moving, you can focus on what matters most: growing
+              your business. Leave the logistics to us. We move, so you don’t
+              have to.
+            </Typography>
+            <Grid2
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <CustomButton
+                sx={{
+                  marginTop: "20px",
+                  alignItems: "flex-end",
+                  width: "200px",
+                  color: "#000",
+                  ":hover": {
+                    color: "#fff",
+                  },
+                }}
+              >
+                <Typography>Contact Us</Typography>
+              </CustomButton>
+            </Grid2>
+          </Grid2>
+        </Grid2>
+        <Grid2
+          sx={{
+            position: "absolute",
+            top: "calc(183vh)",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            onClick={handleDownClickPage3}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "8vh",
+              cursor: "pointer",
+            }}
+          >
+            <JumpingIcon
+              sx={{
+                color: "black",
+                opacity: 0.8,
+                fontSize: "3rem",
+              }}
+            />
+          </Box>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        container
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        padding={"2vh 0vw"}
+        spacing={2}
+        sx={{
+          backgroundColor: "black",
+          flexDirection: "column",
+          width: "100vw",
+          height: "100vh",
+          borderRadius: "26px 26px 26px 26px",
+        }}
+        ref={thirdPageRef}
+      >
+        <Grid2
+          sx={{
+            width: "100%",
+            marginLeft: "50px",
+            marginTop: "-60px",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "Outfit",
+              fontSize: "60px",
+              color: "white",
+            }}
+          >
+            Meet The Team
           </Typography>
-        </Grid>
-        <Grid size={5}>
-          <Typography color="white" fontSize={"1rem"}>
-            The Mercedes-AMG GT Black Series is a stunning embodiment of extreme
-            performance and precision engineering. With its aggressive design
-            featuring a prominent front splitter, wide wheel arches, and a bold
-            rear wing, this high-performance coupe commands attention on the
-            road. Powered by a 4.0-liter twin-turbo V8 engine, it produces a
-            thunderous 720 horsepower, propelling the GT Black Series from 0 to
-            60 mph in just 3.1 seconds. Its advanced aerodynamics and
-            track-tuned suspension deliver unparalleled handling and agility,
-            while the meticulously crafted interior offers a blend of luxury and
-            sportiness. This car is not just a statement of speed, but a
-            testament to Mercedes-AMG’s relentless pursuit of automotive
-            excellence.
-          </Typography>
-        </Grid>
-        <Grid size={7}>
-          <PlateImageRight>
-            <img src={mercedes} alt="mercedes"></img>
-          </PlateImageRight>
-        </Grid>
-        <Grid size={7}>
-          <PlateImageLeft>
-            <img src={lexus} alt="Lexus"></img>
-          </PlateImageLeft>
-        </Grid>
-        <Grid size={5}>
-          <Typography color="white" fontSize={"1rem"}>
-            The Lexus LFA is a stunning testament to engineering prowess and
-            high-performance luxury. With its sleek, aerodynamic profile and
-            distinctive, aggressive styling, the LFA commands attention wherever
-            it goes. Powered by a 4.8-liter V10 engine that revs to a thrilling
-            9,000 rpm and delivers 552 horsepower, the LFA achieves a 0 to 60
-            mph time of just 3.6 seconds. Its advanced carbon fiber construction
-            not only enhances its agility but also contributes to an incredibly
-            responsive driving experience. The meticulously crafted interior
-            combines luxurious materials with a driver-focused design, ensuring
-            that every moment behind the wheel is as exhilarating as it is
-            refined. The Lexus LFA stands as a rare and remarkable blend of
-            performance, innovation, and luxury.
-          </Typography>
-        </Grid>
-      </Grid>
-    </>
+        </Grid2>
+        <ScrollingContainer>
+          <ScrollingContent>
+            {faces.concat(faces).map((image, index) => (
+              <Grid2
+                container
+                sx={{
+                  display: "flex",
+                  marginRight: "20px",
+
+                  width: "300px",
+                }}
+              >
+                <Grid2
+                  sx={{
+                    display: "flex",
+                    height: "400px",
+                    width: "300px",
+                  }}
+                >
+                  <img
+                    src={image.src}
+                    alt={`scrolling-image-${index}`}
+                    style={{
+                      borderRadius: "16px",
+                    }}
+                  />
+                </Grid2>
+                <Grid2>
+                  <Grid2>
+                    <Typography
+                      sx={{
+                        fontFamily: "Outfit",
+                        color: "#e6e6e8",
+                        fontSize: "24px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {image.name}
+                    </Typography>
+                  </Grid2>
+                  <Grid2>
+                    <Typography
+                      sx={{
+                        color: "white",
+                        marginTop: "6px",
+                      }}
+                    >
+                      {image.rank}
+                    </Typography>
+                  </Grid2>
+                </Grid2>
+              </Grid2>
+            ))}
+          </ScrollingContent>
+        </ScrollingContainer>
+        <Grid2
+          sx={{
+            position: "absolute",
+            top: "calc(283vh)",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            onClick={handleDownClickPage4}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "8vh",
+              cursor: "pointer",
+            }}
+          >
+            <JumpingIcon
+              sx={{
+                color: "white",
+                opacity: 0.8,
+                fontSize: "3rem",
+              }}
+            />
+          </Box>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        container
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        padding={"2vh 0vw"}
+        spacing={2}
+        sx={{
+          backgroundColor: "#e6e6e8",
+          flexDirection: "column",
+          width: "100vw",
+          height: "100vh",
+        }}
+        ref={fourthPageRef}
+      >
+        <Grid2></Grid2>
+      </Grid2>
+    </Box>
   );
 }
 
